@@ -1,0 +1,149 @@
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <style>
+       body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url("cine.jpg");
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-size: cover;
+            color:#0e0504;
+            font-weight: bolder;
+            font-family: 'Poppins', sans-serif;
+            
+        }
+        .main {
+            text-align: center;
+            font-size: 23px;
+            border: 2px solid rgb(226, 218, 196);
+            padding:50px;
+            border-radius: 22px;
+            box-shadow: 20px 20px 15px #432d27;
+            background-color: rgb(226, 218, 196); 
+            opacity: 0.65;
+        }
+        .main:hover{
+            transform: scale(1.1);
+    box-shadow:  0 0 80px -25px rgba(229, 208, 208, 0.5);
+        }
+        table {
+            margin: 0 auto;
+            font-size: 23px;
+        }
+        input[type=text],input[type=submit]{
+            padding:9px;
+            border-radius:5px;
+            font-family: 'Poppins', sans-serif;
+
+        }
+        img{
+            border-radius: 9px;
+        }
+
+    </style>
+</head>
+<body>
+
+   
+    <div class="main">
+        
+        <div id="demo"></div><br><br>
+   <center> 
+    <table>
+        <tr colspan="1">
+    <th>Your Selected Seats:</th>
+    <td><p id="result"></p></td></tr>
+    <th>Selected Concert:</th><td><p id="result1"></p></td>
+    
+    <tr><th>Timings:</th>
+    <td><p id="result2"></p></td></tr>
+    <tr><th>Ticket Price:</th>
+    <td><p id="result3"> </p></td></tr>
+</table>
+<br>
+       Enter coupon code:  <br><br><input type="text" placeholder="Enter Coupon Code.." id="t1">
+       <br> <br><input type="submit" value="Confirm Tickets" onclick="return book()">
+       <p id="last"></p>  
+       <p id="final"></p>
+    </div>
+    <script>
+        document.getElementById("result").innerHTML=localStorage.getItem("tickets");
+        document.getElementById("result1").innerHTML=localStorage.getItem("moviename");
+        document.getElementById("result2").innerHTML=localStorage.getItem("time");
+        document.getElementById("result3").innerHTML=" ₹"+localStorage.getItem("total");
+     </script>
+  
+   </center>
+   <script>
+    // Move the script below the main div to ensure the DOM element is available
+    // Selecting the element with the ID 'demo' to append the image
+    var element = document.getElementById("demo");
+    var movienames=localStorage.getItem("moviename");
+    // Creating and appending the image
+    var image = document.createElement("img");
+    if(movienames==="BTS:Yet To Come"){
+    image.setAttribute("src", "https://images-na.ssl-images-amazon.com/images/I/81%2BggV5X6SL.jpg");
+    image.setAttribute("width", "200");
+    image.setAttribute("height", "200");
+    element.appendChild(image);
+   }
+   if(movienames==="BlackPink:in ur area"){
+    image.setAttribute("src", "https://m.media-amazon.com/images/I/514teDSzETL.jpg");
+    image.setAttribute("width", "200");
+    image.setAttribute("height", "200");
+    element.appendChild(image);}
+   
+    if(movienames==="Taylors Swift:The Eras Tour"){
+    image.setAttribute("src", "https://i.pinimg.com/736x/66/da/7d/66da7d37a993cf458796ed5eca2de17f.jpg");
+    image.setAttribute("width", "200");
+    image.setAttribute("height", "200");
+    element.appendChild(image);}
+
+    // Rest of your script remains unchanged
+    // Ensure the logic within 'book()' function is appropriately handling coupon application and displaying content.
+</script>
+   <script>
+      function clearContent() {
+            document.getElementById("last").innerHTML = "";
+            document.getElementById("final").innerHTML = "";
+        }
+      function book(){
+        var ttcost;
+        var tcost=localStorage.getItem("total");
+        ucoupon=document.getElementById("t1").value;
+        var discountApplied = "Discount Not Applied"; 
+        const coupons=["04m782","36s783","38rr40","28j785","19g786"];
+        for(let i in coupons){
+            if(coupons[i]===ucoupon){
+                ttcost=tcost-(tcost*10/100);
+                discountApplied = "Discount Applied";
+                break;
+            }
+            
+        }
+        clearContent();
+        if(discountApplied==="Discount Not Applied"){
+        document.getElementById("last").innerHTML = discountApplied ;
+        document.getElementById("last").innerHTML+="<br>Final Price : ₹"+tcost;
+        
+        }
+        else{
+            clearContent();
+            document.getElementById("last").innerHTML+="Congragulations!!! <br> You has successfully redeemed your coupon";
+            document.getElementById("final").innerHTML+="Total Ticket Price    : ₹"+tcost+"<br>";
+            document.getElementById("final").innerHTML+="Discount Price        : ₹"+(tcost-ttcost)+"<br>";
+            document.getElementById("final").innerHTML+="Final Price           : ₹"+ttcost;
+        }
+
+        
+
+      }
+   </script>
+   
+</body>
