@@ -1,2 +1,2 @@
-# Movie-Ticket-Booking
+# Movie-Ticket-Booking Basic
 Web Project
